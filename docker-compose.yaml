@@ -56,7 +56,7 @@ services:
 
       SPRING_MAIL_PORT: 465
       SPRING_MAIL_USERNAME: "subhanvlili17@gmail.com"
-      SPRING_MAIL_PASSWORD: "qdaeqrieepsmilza"
+      SPRING_MAIL_PASSWORD: "********************"
     depends_on:
       db:
         condition: service_healthy
