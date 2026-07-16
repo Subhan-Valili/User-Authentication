@@ -11,20 +11,28 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@Table(name = "permissions")
+@Table(name = "roles")
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class PermissionEntity {
-
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @Column(unique = true, nullable = false)
     String name;
+
     @ToString.Exclude
-    @ManyToMany(mappedBy = "permissions")
-    private Set<RoleEntity> roles = new LinkedHashSet<>();
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users = new LinkedHashSet<>();
+
+    @ToString.Exclude
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "roles_permission",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    private Set<Permission> permissions = new LinkedHashSet<>();
+
 
 }

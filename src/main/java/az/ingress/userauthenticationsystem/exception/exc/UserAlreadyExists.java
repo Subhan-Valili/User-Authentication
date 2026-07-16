@@ -4,7 +4,7 @@ import az.ingress.userauthenticationsystem.exception.BaseException;
 import az.ingress.userauthenticationsystem.exception.ErrorCode;
 
 public class UserAlreadyExists extends BaseException {
-    public UserAlreadyExists(String message) {
-        super(ErrorCode.USER_ALREADY_EXISTS,message);
+    public UserAlreadyExists() {
+        super(ErrorCode.USER_EMAIL_ALREADY_EXISTS);
     }
 }

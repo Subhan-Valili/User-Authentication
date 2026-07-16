@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserEntity implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,7 @@ public class UserEntity implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @Builder.Default
-    private Set<RoleEntity> roles = new LinkedHashSet<>();
+    private Set<Role> roles = new LinkedHashSet<>();
 
     @Override
     public final boolean equals(Object o) {
@@ -51,7 +51,7 @@ public class UserEntity implements UserDetails {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        UserEntity that = (UserEntity) o;
+        User that = (User) o;
         return getId() != null && Objects.equals(getId(), that.getId());
     }
 

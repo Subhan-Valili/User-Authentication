@@ -16,7 +16,7 @@ services:
     networks:
       - auth-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d auth"]
+      test: [ "CMD-SHELL", "pg_isready -U admin -d auth" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -33,13 +33,13 @@ services:
       - auth-network
     command: redis-server --notify-keyspace-events Ex
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 5s
       timeout: 5s
       retries: 5
 
   spring-app:
-    image: subhan2007/user-auth-system:6.0
+    image: subhan2007/user-auth-system:7.0
     container_name: auth_app
 #    platform: linux/amd64
     restart: always
@@ -56,7 +56,7 @@ services:
 
       SPRING_MAIL_PORT: 465
       SPRING_MAIL_USERNAME: "subhanvlili17@gmail.com"
-      SPRING_MAIL_PASSWORD: "**********************"
+      SPRING_MAIL_PASSWORD: "qdaeqrieepsmilza"
     depends_on:
       db:
         condition: service_healthy

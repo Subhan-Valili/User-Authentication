@@ -87,12 +87,35 @@ public enum ErrorCode {
             "Role with name ''{0}'' was not found.",
             HttpStatus.NOT_FOUND),
 
-    USER_ALREADY_EXISTS(
+    USER_EMAIL_ALREADY_EXISTS(
             "USER_ALREADY_EXISTS",
             "User already exists",
-            "User with username or email ''{0}'' already exists.",
+            "User with username or email already exists.",
             HttpStatus.CONFLICT),
-
+    OTP_SENT(
+            "OTP_SENT",
+            "OTP_SENT",
+            "OTP kodu artıq göndərilib." +
+                    " Zəhmət olmasa poçt qutunuzu yoxlayın və ya " +
+                    "3 dəqiqə sonra yenidən cəhd edin.",
+            HttpStatus.CONFLICT
+    ),
+    OTP_MISMATCH(
+            "OTP_MISMATCH",
+            "OTP mismatch",
+            "OTP kodu yanlışdır! Qalan cəhd sayı: {0}",
+            HttpStatus.BAD_REQUEST),
+    REGISTRATION_SESSION_EXPIRED(
+            "REGISTRATION_SESSION_EXPIRED",
+            "Registration session expired",
+            "Qeydiyyat sessiyanızın vaxtı bitib. Zəhmət olmasa yenidən qeydiyyatdan keçin.",
+            HttpStatus.GONE),
+    OTP_EXPIRED(
+            "OTP_EXPIRED",
+            "OTP_EXPIRED",
+            "OTP expired",
+            HttpStatus.CONFLICT
+    ),
     UNKNOWN(
             "UNKNOWN",
             "Unknown error",
