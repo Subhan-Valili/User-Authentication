@@ -1,0 +1,7 @@
+springdoc:
+  packages-to-scan:
+    - az.ingress.userauthenticationsystem.controller
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true

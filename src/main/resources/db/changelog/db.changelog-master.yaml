@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - includeAll:
+      path: db/changelog/entities/
+  - includeAll:
+      path: db/changelog/relationship/
+  - include:
+      file: db/changelog/data/data-load.yaml

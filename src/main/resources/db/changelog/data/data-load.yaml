@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: load-initial-test-data
+      author: Subhan-Valili
+      context: dev
+      changes:
+        - sqlFile:
+            path: db/changelog/data/insert-initial-data.sql
+            relativeToChangelogFile: false

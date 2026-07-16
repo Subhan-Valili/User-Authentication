@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:17
+    container_name: auth_db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: auth
+    ports:
+      - "2222:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - auth-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d auth"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: auth_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - auth-network
+    command: redis-server --notify-keyspace-events Ex
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  spring-app:
+    image: subhan2007/user-auth-system:6.0
+    container_name: auth_app
+#    platform: linux/amd64
+    restart: always
+    ports:
+      - "9999:9090"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: auth
+      DB_USER: admin
+      DB_PASSWORD: admin123
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+      SPRING_MAIL_PORT: 465
+      SPRING_MAIL_USERNAME: "subhanvlili17@gmail.com"
+      SPRING_MAIL_PASSWORD: "**********************"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - auth-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  auth-network:
+    driver: bridge

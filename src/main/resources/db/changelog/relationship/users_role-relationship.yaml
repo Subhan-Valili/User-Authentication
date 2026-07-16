@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4-create-users-role-relation
+      author: Subhan-Valili
+      changes:
+        - createTable:
+            tableName: users_role
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: users_role
+            columnNames: user_id, role_id
+            constraintName: pk_users_role
+        - addForeignKeyConstraint:
+            baseTableName: users_role
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_users_role_user
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: users_role
+            baseColumnNames: role_id
+            referencedTableName: roles
+            referencedColumnNames: id
+            constraintName: fk_users_role_role
+            onDelete: CASCADE

@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5-create-roles-permission-relation
+      author: Subhan-Valili
+      changes:
+        - createTable:
+            tableName: roles_permission
+            columns:
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: permission_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: roles_permission
+            columnNames: role_id, permission_id
+            constraintName: pk_roles_permission
+        - addForeignKeyConstraint:
+            baseTableName: roles_permission
+            baseColumnNames: role_id
+            referencedTableName: roles
+            referencedColumnNames: id
+            constraintName: fk_roles_permission_role
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: roles_permission
+            baseColumnNames: permission_id
+            referencedTableName: permissions
+            referencedColumnNames: id
+            constraintName: fk_roles_permission_permission
+            onDelete: CASCADE

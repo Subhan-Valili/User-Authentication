@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    include:
+      - db
+      - jwt
+      - redis
+      - email
+      - swagger
+
+
+server:
+  port: 9090
